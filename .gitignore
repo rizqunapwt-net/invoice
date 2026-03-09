@@ -1,0 +1,30 @@
+# Environment variables
+app/.env
+.env.local
+.env.*.local
+
+# Docker
+.docker/
+docker-compose.override.yml
+
+# Laravel
+app/bootstrap/cache/*
+app/storage/*
+app/vendor/
+app/node_modules/
+
+# Data & Logs
+data/storage/
+logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+._*
+
+# System
+*.tmp

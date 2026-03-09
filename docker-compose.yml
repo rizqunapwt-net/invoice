@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  db-invoice:
+    image: mariadb:latest
+    container_name: invoice_db
+    restart: always
+    command: >
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --max_connections=200
+      --max_allowed_packet=64M
+      --innodb_buffer_pool_size=512M
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: u9443309_invoice
+      MYSQL_USER: u9443309_invoice
+      MYSQL_PASSWORD: invoice_password
+      TZ: UTC
+    ports:
+      - "127.0.0.1:33069:3306"
+    volumes:
+      - ./data/db:/docker-entrypoint-initdb.d
+      - db_invoice_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+      start_period: 40s
+
+  app-invoice:
+    build: .
+    container_name: invoice_app
+    restart: always
+    ports:
+      - "8089:80"
+    volumes:
+      - ./app:/var/www/html
+      - ./data/storage:/var/www/html/storage
+    environment:
+      DB_HOST: db-invoice
+      DB_USER: u9443309_invoice
+      DB_PASSWORD: invoice_password
+      DB_NAME: u9443309_invoice
+      APP_ENV: development
+      APP_DEBUG: "false"
+      TZ: UTC
+    depends_on:
+      db-invoice:
+        condition: service_healthy
+    working_dir: /var/www/html
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  db_invoice_data:

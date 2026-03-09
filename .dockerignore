@@ -1,0 +1,15 @@
+node_modules
+vendor
+npm-debug.log
+yarn-error.log
+.git
+.gitignore
+README.md
+.env
+.DS_Store
+.vscode
+.idea
+data/db
+data/storage
+logs
+app/storage
