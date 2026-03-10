@@ -176,11 +176,11 @@ class UserController extends Controller
         $users = User::findorfail($id);
 
         $users -> name=$request->name;
+        $users -> username=$request->username;
         $users -> email=$request->email;
-        $users-> alamat=$request-> alamat;
-        $users->institusi=$request->institusi;
-        $users->tgchat_id=$request->tgchat_id;
-     
+        $users -> alamat=$request->alamat;
+        $users -> institusi=$request->institusi;
+        $users -> tgchat_id=$request->tgchat_id;
         $users -> level=$request->level;
         if(!empty($request->password)){
             $password=Hash::make($request->password);
