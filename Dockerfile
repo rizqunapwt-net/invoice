@@ -16,9 +16,15 @@ RUN apt-get update && apt-get install -y \
     libwebp-dev \
     git \
     curl \
-    composer \
-    npm \
+    gnupg \
     default-mysql-client \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Install Node.js and npm
+RUN apt-get update && apt-get install -y nodejs npm \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
@@ -51,7 +57,7 @@ RUN echo "expose_php = Off" > /usr/local/etc/php/conf.d/security.ini \
 
 # Install composer dependencies
 COPY app/composer.* ./
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-reqs
 
 # Install node dependencies
 COPY app/package*.json ./

@@ -23,16 +23,21 @@ class TestimoniController extends Controller
     }
     public function simpan(Request $request)
     {
-        $unik=rand(1,99);
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'testimoni' => 'required|string',
+            'gambar' => 'required|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
         $testimoni= new Testimoni;
         $testimoni -> nama=$request->nama;
         $testimoni->instansi=$request->institusi;
         $testimoni->testimoni=$request->testimoni;
         $file=$request -> file('gambar');
-        $unik=rand(1,99);
-        $filename=str_replace(' ', '-', $file->getClientOriginalName()); 
-        $request->file('gambar')->move('foto/', $unik.$filename);
-        $testimoni->foto='foto/'.$unik.$filename;
+        $ext = $file->getClientOriginalExtension();
+        $filename = time() . '_' . \Illuminate\Support\Str::random(8) . '.' . $ext;
+        $request->file('gambar')->move('foto/', $filename);
+        $testimoni->foto='foto/'.$filename;
      
        //dd($testimoni);
         $testimoni ->save(); 
@@ -47,7 +52,7 @@ class TestimoniController extends Controller
     public function update(Request $request, $id)
     {
         $unik=rand(1,99);
-        $testimoni = Testimoni::find($id);
+        $testimoni = Testimoni::findorfail($id);
         $testimoni -> nama=$request->nama;
         $testimoni->instansi=$request->instansi;
         $testimoni->testimoni=$request->testimoni;

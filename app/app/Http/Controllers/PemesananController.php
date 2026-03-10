@@ -52,24 +52,12 @@ class PemesananController extends Controller
         //dd($paket);
         // Mail::send('invoice',array(
         //     'firstname'=>$dt['nama'],
-        //     'total'=>$total,
-        //     'namapemesan'=>$dt['nama'],
-        //     'harga'=>$dt['harga'],
-        //     'status'=>'LUNAS',
-        //     'diskon'=>$dt['diskon'],
-        //     'namapaket'=>$paket['namapaket'],
-        //     'unik'=>$request->kodeinvoice),
-        //     function($pesan) use($duser){
-        //     $pesan->to($duser['email'],'Kwitansi MesemVirtual')->subject('Kwitansi MesemVirtual ' );
-        //     $pesan->replyTo(env('MAIL_REPLY_TO', 'noreply@rizquna.id'),"Admin Rizquna");
-        //     $pesan->from('koko2@iainpurwokerto.ac.id','Kwitansi MesemVirtual' );
-        // });
        
         return redirect()->back()->with('success','Data peserta berhasil diupdate!');
     }
     public function hapus($id)
     {
-        $h=Pemesanan::find($id);
+        $h=Pemesanan::findorfail($id);
         $h->delete();
         return redirect()->back()->with('success','Data berhasil dihapus!');
     }
@@ -420,7 +408,7 @@ exit();
         $transfer->file='transfer/'.$filename;
        
         $transfer->peserta_id=$request->user_id;
-        $user=User::find($request->user_id);
+        $user=User::findorfail($request->user_id);
         $datauser= json_decode( json_encode($user), true);
         //dd($datauser['id']);
         $namauser=$datauser['name'];

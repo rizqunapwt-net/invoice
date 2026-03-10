@@ -79,7 +79,7 @@ class KatpengeluaranController extends Controller
     public function update(Request $request)
     {
          
-        $katpengeluaran = Katpengeluaran::find($request->id);
+        $katpengeluaran = Katpengeluaran::findorfail($request->id);
  
         $katpengeluaran -> namakategori=$request->namakategori;
         

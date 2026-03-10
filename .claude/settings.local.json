@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir:*)",
+      "Bash(test:*)",
+      "Bash(powershell.exe -Command \"Get-ChildItem ''E:\\\\THOLIB\\\\backup-3.4.2026_10-28-54_u9443309\\\\backup-3.4.2026_10-28-54_u9443309'' | Select-Object Name, Mode\")",
+      "Bash(powershell.exe -Command \"Get-ChildItem ''E:\\\\THOLIB\\\\backup-3.4.2026_10-28-54_u9443309\\\\backup-3.4.2026_10-28-54_u9443309\\\\homedir'' | Select-Object Name, Mode\")",
+      "Bash(powershell.exe -Command \"Get-ChildItem ''E:\\\\THOLIB\\\\backup-3.4.2026_10-28-54_u9443309\\\\backup-3.4.2026_10-28-54_u9443309\\\\mysql'' | Select-Object Name, Mode\")",
+      "Bash(powershell.exe -Command \"Get-ChildItem ''E:\\\\THOLIB\\\\backup-3.4.2026_10-28-54_u9443309\\\\backup-3.4.2026_10-28-54_u9443309\\\\homedir\\\\nota.rizquna.id'' -Depth 0 | Select-Object Name, Mode\")",
+      "Bash(powershell.exe -Command \"Get-ChildItem ''E:\\\\THOLIB\\\\backup-3.4.2026_10-28-54_u9443309\\\\backup-3.4.2026_10-28-54_u9443309\\\\homedir\\\\rizquna-laravel'' -Depth 0 | Select-Object Name, Mode\")",
+      "Bash(powershell.exe -Command \"Get-ChildItem ''E:\\\\THOLIB\\\\backup-3.4.2026_10-28-54_u9443309\\\\backup-3.4.2026_10-28-54_u9443309\\\\homedir\\\\public_html'' -Depth 0 | Select-Object Name, Mode\")",
+      "Bash(powershell.exe -Command \"Get-ChildItem ''E:\\\\THOLIB\\\\backup-3.4.2026_10-28-54_u9443309\\\\backup-3.4.2026_10-28-54_u9443309\\\\homedir\\\\public_html\\\\invoice'' -Depth 0 | Select-Object Name, Mode\")",
+      "Bash(powershell.exe -Command \"Get-ChildItem ''E:\\\\THOLIB\\\\backup-3.4.2026_10-28-54_u9443309\\\\backup-3.4.2026_10-28-54_u9443309\\\\homedir\\\\public_html\\\\invoice'' -Depth 0 | Select-Object Name, Mode | Format-Table -AutoSize\")",
+      "Bash(powershell.exe -Command \"Get-ChildItem ''E:\\\\THOLIB\\\\wordpress\\\\invoice.rizquna.id\\\\app'' -Depth 0 | Select-Object Name, Mode | Format-Table -AutoSize\")",
+      "Bash(powershell.exe -Command \"\n$src = ''E:\\\\THOLIB\\\\backup-3.4.2026_10-28-54_u9443309\\\\backup-3.4.2026_10-28-54_u9443309\\\\homedir\\\\public_html\\\\invoice''\n$dst = ''E:\\\\THOLIB\\\\wordpress\\\\invoice.rizquna.id\\\\app''\n\n# Copy Laravel directories\n$dirs = @\\(''app'',''bootstrap'',''config'',''database'',''resources'',''routes'',''storage'',''tests'',''vendor''\\)\nforeach \\($d in $dirs\\) {\n    Write-Host \"\"Copying $d...\"\"\n    Copy-Item -Path \"\"$src\\\\$d\"\" -Destination \"\"$dst\\\\$d\"\" -Recurse -Force\n    Write-Host \"\"  Done: $d\"\"\n}\n\n# Copy webpack.mix.js\nWrite-Host ''Copying webpack.mix.js...''\nCopy-Item -Path \"\"$src\\\\webpack.mix.js\"\" -Destination \"\"$dst\\\\webpack.mix.js\"\" -Force\nWrite-Host ''Done!''\n\")",
+      "Bash(powershell.exe -Command \"\n$src = ''E:\\\\THOLIB\\\\backup-3.4.2026_10-28-54_u9443309\\\\backup-3.4.2026_10-28-54_u9443309\\\\homedir\\\\public_html\\\\invoice''\n$dst = ''E:\\\\THOLIB\\\\wordpress\\\\invoice.rizquna.id\\\\app''\n\nWrite-Host ''Copying public/...''\nCopy-Item -Path \"\"$src\\\\public\"\" -Destination \"\"$dst\\\\public\"\" -Recurse -Force\nWrite-Host ''Done!''\n\")",
+      "Bash(powershell.exe -Command \"\n$src = ''E:\\\\THOLIB\\\\backup-3.4.2026_10-28-54_u9443309\\\\backup-3.4.2026_10-28-54_u9443309\\\\mysql''\n$dst = ''E:\\\\THOLIB\\\\wordpress\\\\invoice.rizquna.id\\\\data\\\\db''\n\nWrite-Host ''Copying u9443309_invoice.sql...''\nCopy-Item -Path \"\"$src\\\\u9443309_invoice.sql\"\" -Destination \"\"$dst\\\\u9443309_invoice.sql\"\" -Force\nWrite-Host ''Copying u9443309_invoice.create...''\nCopy-Item -Path \"\"$src\\\\u9443309_invoice.create\"\" -Destination \"\"$dst\\\\u9443309_invoice.create\"\" -Force\nWrite-Host ''Done!''\n\n# Show file sizes\nGet-ChildItem \"\"$dst\"\" | Select-Object Name, @{N=''SizeMB'';E={[math]::Round\\($_.Length/1MB,2\\)}}\n\")",
+      "Bash(powershell.exe -Command:*)",
+      "Bash(powershell.exe -NoProfile -Command \"Copy-Item -Path ''E:\\\\THOLIB\\\\backup-3.4.2026_10-28-54_u9443309\\\\backup-3.4.2026_10-28-54_u9443309\\\\homedir\\\\nota.rizquna.id\\\\*'' -Destination ''E:\\\\THOLIB\\\\wordpress\\\\invoice.rizquna.id\\\\app\\\\public'' -Recurse -Force; Write-Host ''Done copying nota.rizquna.id assets''\")",
+      "Bash(powershell.exe -NoProfile -Command \"Get-ChildItem ''E:\\\\THOLIB\\\\wordpress\\\\invoice.rizquna.id\\\\app'' -Depth 0 | Select-Object Name, Mode | Format-Table -AutoSize\")",
+      "Bash(powershell.exe -NoProfile -Command \"Get-ChildItem ''E:\\\\THOLIB\\\\wordpress\\\\invoice.rizquna.id\\\\app\\\\invoice'' -Depth 0 | Select-Object Name, Mode | Format-Table -AutoSize\")",
+      "Bash(powershell.exe -NoProfile -Command \"\n# Move contents from app/invoice/* to app/ \\(overwrite existing\\)\n$src = ''E:\\\\THOLIB\\\\wordpress\\\\invoice.rizquna.id\\\\app\\\\invoice''\n$dst = ''E:\\\\THOLIB\\\\wordpress\\\\invoice.rizquna.id\\\\app''\n\n# Move directories\n$dirs = @\\(''app'',''bootstrap'',''config'',''database'',''resources'',''routes'',''storage'',''tests'',''vendor'',''.git'',''.vscode''\\)\nforeach \\($d in $dirs\\) {\n    if \\(Test-Path \\(Join-Path $src $d\\)\\) {\n        $target = Join-Path $dst $d\n        if \\(Test-Path $target\\) { Remove-Item $target -Recurse -Force }\n        Write-Host \\(''Moving '' + $d + ''...''\\)\n        Move-Item -Path \\(Join-Path $src $d\\) -Destination $target -Force\n    }\n}\n\n# Move files \\(only ones that should overwrite or are new\\)\n$files = @\\(''webpack.mix.js'',''.DS_Store''\\)\nforeach \\($f in $files\\) {\n    if \\(Test-Path \\(Join-Path $src $f\\)\\) {\n        Write-Host \\(''Moving '' + $f + ''...''\\)\n        Move-Item -Path \\(Join-Path $src $f\\) -Destination \\(Join-Path $dst $f\\) -Force\n    }\n}\n\n# Remove the leftover invoice directory\nRemove-Item $src -Recurse -Force\nWrite-Host ''Done!''\n\")",
+      "Bash(powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"E:\\\\THOLIB\\\\wordpress\\\\invoice.rizquna.id\\\\scripts\\\\fix-copy.ps1\")",
+      "Bash(powershell.exe -NoProfile -Command \"Get-ChildItem ''E:\\\\THOLIB\\\\wordpress\\\\invoice.rizquna.id\\\\app\\\\public'' -Depth 0 | Select-Object Name, Mode | Format-Table -AutoSize\")",
+      "Bash(powershell.exe -NoProfile -Command \"Get-ChildItem ''E:\\\\THOLIB\\\\wordpress\\\\invoice.rizquna.id\\\\app\\\\app'' -Depth 0 | Select-Object Name, Mode | Format-Table -AutoSize\")",
+      "Bash(powershell.exe -NoProfile -Command \"Get-ChildItem ''E:\\\\THOLIB\\\\wordpress\\\\invoice.rizquna.id\\\\app\\\\routes'' | Select-Object Name\")",
+      "Bash(git init:*)",
+      "Bash(git branch:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(git remote:*)"
+    ]
+  }
+}

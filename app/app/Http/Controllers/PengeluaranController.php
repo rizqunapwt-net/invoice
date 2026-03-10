@@ -82,7 +82,7 @@ class PengeluaranController extends Controller
     public function update(Request $request)
     {
          
-        $pengeluaran = Pengeluaran::find($request->id);
+        $pengeluaran = Pengeluaran::findorfail($request->id);
  
         $pengeluaran -> keterangan=$request->keterangan;
         $pengeluaran -> katpengeluaran_id=$request->katpengeluaran_id;

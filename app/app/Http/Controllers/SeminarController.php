@@ -40,23 +40,6 @@ class SeminarController extends Controller
         curl_close($ch);
     }
 
-    public function testelegram($idtelegram)
-    {
-        $pesan="ping....!!";
-        $this-> kirimtelegram($idtelegram,$pesan);
-        
-    }
-    public function kirimemail()
-    {
-        Mail::send([], [], function ($message) {
-            $message->to('suprisdiantoko1@gmail.com')
-              ->subject('info seminar')
-              // here comes what you want
-            //   ->setBody('Hi, welcome user!'); // assuming text/plain
-              // or:
-              ->setBody('<h1>Hi, welcome user!</h1>', 'text/html'); // for HTML rich messages
-          });
-    }
     
     public function index()
     {
@@ -121,12 +104,6 @@ class SeminarController extends Controller
         return view('admin.seminar.daftarbaru', compact('seminar'));
     }
    
-    public function tesemail()
-    {
-        $details['email'] = env('MAIL_FROM_ADDRESS', 'noreply@rizquna.id');
-        dispatch(new App\Jobs\SendEmail($details));
-        dd('berhasil');
-    }
     public function kirimemailpeserta(Request $request)
     {
         ini_set('memory_limit',"4000M");
@@ -520,9 +497,9 @@ class SeminarController extends Controller
         ini_set('memory_limit',"4000M");
         ini_set('max_execution_time', 0);
         $peserta=Peserta::where('seminar_id',$id)->where('sebagai','peserta')->get()->sortByDesc('namapeserta');
-        $seminar=Seminar::find($id);
+        $seminar=Seminar::findorfail($id);
         //dd($seminar);
-        
+
         $pdf = app('dompdf.wrapper');
         $pdf->getDomPDF()->set_option("enable_php", true);
         $pdf->loadView('admin.seminar.cetakpeserta',compact('peserta','seminar'));
@@ -537,9 +514,9 @@ class SeminarController extends Controller
         ini_set('max_execution_time', 0);
         $peserta=Peserta::where('seminar_id',$id)->where('sebagai','peserta')
         ->whereNotNull('kesanpesan')->get()->sortByDesc('namapeserta');
-        $seminar=Seminar::find($id);
+        $seminar=Seminar::findorfail($id);
         //dd($seminar);
-        
+
         $pdf = app('dompdf.wrapper');
         $pdf->getDomPDF()->set_option("enable_php", true);
         $pdf->loadView('admin.seminar.cetakpresensi',compact('peserta','seminar'));
@@ -674,14 +651,14 @@ exit();
     {
         $peserta=Peserta::findorfail($request->id);
         $userid=$peserta->user_id;
-        $user=User::find($userid);
+        $user=User::findorfail($userid);
 
         //dd($userid);
         $peserta->status='ok';
          
        
         $peserta ->save(); 
-        $seminar=Seminar::find($peserta->seminar_id);
+        $seminar=Seminar::findorfail($peserta->seminar_id);
         $nomortagihan=$request->id;
         $namapeserta=$user->name;
         $namaseminar=$seminar->namaseminar;
@@ -1013,9 +990,9 @@ exit();
     }
     public function konfirmasi($idpeserta,$seminar_id)
     {   
-        $peserta=Peserta::find($idpeserta);
+        $peserta=Peserta::findorfail($idpeserta);
         $seminar_id=$seminar_id;
-        $seminar=Seminar::find($seminar_id);
+        $seminar=Seminar::findorfail($seminar_id);
         
 
     return view('konfirmasi',compact('peserta','seminar'));
@@ -1028,16 +1005,16 @@ exit();
     ]);
 
         $file=$request -> file('file');
-        $unik=rand(1,99);
-        $filename=str_replace(' ', '-', $file->getClientOriginalName()); 
-        $request->file('file')->move('transfer/', $unik.$filename);
+        $ext = $file->getClientOriginalExtension();
+        $filename = time() . '_' . Str::random(8) . '.' . $ext;
+        $request->file('file')->move('transfer/', $filename);
         $transfer = 
          Transferan;
 
-        $transfer->file='transfer/'.$unik.$filename;
+        $transfer->file='transfer/'.$filename;
         $transfer->seminar_id=$request->seminar_id;
         $transfer->peserta_id=$request->peserta_id;
-        $peserta=Peserta::find($request->peserta_id);
+        $peserta=Peserta::findorfail($request->peserta_id);
         $datapeserta= json_decode( json_encode($peserta), true);
         //dd($datapeserta['id']);
         $namapeserta=$datapeserta['namapeserta'];
@@ -1078,8 +1055,8 @@ silakan proses!";
     public function update(Request $request, $id)
     {
         $unik=rand(1,99);
-        $seminar = Seminar::find($id);
-        
+        $seminar = Seminar::findorfail($id);
+
         $seminar -> namaseminar=$request->namaseminar;
         $seminar -> tanggal=$request->tanggal;
         $seminar->english=$request->english;

@@ -173,8 +173,8 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
          
-        $users = User::find($id);
- 
+        $users = User::findorfail($id);
+
         $users -> name=$request->name;
         $users -> email=$request->email;
         $users-> alamat=$request-> alamat;
@@ -240,7 +240,7 @@ class UserController extends Controller
     public function updatettl(Request $request)
     {
          
-        $users = User::find($request->id);   
+        $users = User::findorfail($request->id);
         $users->phone=$request->phone;
         $users->ttl=$request->ttl;
         $users->alamat=$request->alamat;
@@ -255,9 +255,9 @@ class UserController extends Controller
     public function gantipassword(Request $request)
     {
          
-        $users = User::find($request->id);
- 
-     
+        $users = User::findorfail($request->id);
+
+
         if(!empty($request->newpaswd) && $request->newpaswd == $request->newpaswdconfirm){
             $newpassword=Hash::make($request->newpaswd);
         }
