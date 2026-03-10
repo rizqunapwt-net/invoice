@@ -65,7 +65,7 @@
                   <font color="red">Keterangan: LUNAS<br></font>
 
                  Hormat Kami:<br>
-                 <a href="http://mesem.rizquna.id">MesemVirtual Team </a>
+                 <a href="https://rizquna.id">Rizquna Team </a>
                     
 
                         

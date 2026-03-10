@@ -246,8 +246,8 @@
             }
         </style>
         <div class="container">
- <img class="center" src="logo-mesem.jpg"  width="200px">
- <center> <a href="http://mesem.rizquna.id">http://mesem.rizquna.id</a></center>
+ <img class="center" src="logo-rizquna.jpg"  width="200px">
+ <center> <a href="https://invoice.rizquna.id">https://invoice.rizquna.id</a></center>
  <table class="kop">
 <tr>
     <td>REKAP Keuangan </td>

@@ -13,7 +13,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Order Paket MesemVirtual</div>
+                <div class="card-header">Order Paket Invoice Rizquna</div>
 
                 <div class="card-body">
                     <h3>Kode Invoice: {{$unik}} | Status: {{$status}}</h3>
@@ -54,7 +54,7 @@
                    @endif
                    <hr>
                    <br>
-                   MesemVirtual Team
+                   Rizquna Team
 
                          
                      

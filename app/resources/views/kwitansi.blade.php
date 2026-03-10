@@ -29,6 +29,7 @@
                        </div>
 
                        <div class="col-md-6 text-right">
+                           <img src="{{url('/')}}/logo-rizquna.jpg" width="200px">
                            <p class="font-weight-bold mb-1">Tagihan #{{ $unik }}</p>
                            <p class="text-muted">Tanggal: {{date('d-m-Y')}}</p>
                        </div>
@@ -39,6 +40,7 @@
                    <div class="row pb-5 p-5">
                        <div class="col-md-6">
                            <p class="font-weight-bold mb-4"><b>Informasi Peserta</b></p>
+                           <a class="navbar-brand" href="{{route('halamanutama')}}">Invoice Rizquna</a>
                            <p class="mb-1"> Nama: {{$namapeserta}} </p>
                            <p> Institusi: {{$institusi}}</p>
                           
@@ -65,7 +67,7 @@
                   <font color="red">Keterangan: LUNAS<br></font>
 
                  Hormat Kami:<br>
-                 <a href="http://mesem.rizquna.id">MesemVirtual Team </a>
+                 <a href="https://rizquna.id">Rizquna Team </a>
                     
 
                         

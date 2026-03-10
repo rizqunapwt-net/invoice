@@ -133,7 +133,7 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right"></label>
 
                             <div class="col-md-6">
-                                <input type="checkbox" required> Dengan ini saya menyetujui <a href={{route('tos')}}>Ketentuan Layanan</a> MesemVirtual 
+                                <input type="checkbox" required> Dengan ini saya menyetujui <a href={{route('tos')}}>Ketentuan Layanan</a> Invoice Rizquna 
                             </div>
                         </div>
                        

@@ -81,7 +81,7 @@
                         <textarea name="pesan" id="" class="form-control ckeditor" cols="50" rows="10" required>
                         
                       {{ $seminar->keterangan }}
-                        Hormat kami,<a href="http://mesem.rizquna.id">MesemVirtual</a>
+                        Hormat kami,<a href="https://invoice.rizquna.id">Invoice Rizquna</a>
 
                         </textarea>
  

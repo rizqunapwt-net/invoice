@@ -1,5 +1,5 @@
 <footer class="footer text-center">
-                © coding by <a href="https://youtube.com/kangsupris">kangsupris</a>
+                © {{date('Y')}} Invoice Rizquna. All Rights Reserved.
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->

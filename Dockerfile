@@ -1,4 +1,4 @@
-FROM php:8.2-apache
+FROM php:7.4-apache
 
 # Set locale and timezone support
 RUN apt-get update && apt-get install -y locales tzdata && \
@@ -24,8 +24,7 @@ RUN apt-get update && apt-get install -y \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Install Node.js and npm
-RUN apt-get update && apt-get install -y nodejs npm \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+# NODEJS NOT INSTALLED (to avoid network issues, use existing assets)
 
 # Install PHP extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
@@ -45,7 +44,9 @@ RUN a2enmod rewrite headers expires
 # PHP configuration
 RUN echo "upload_max_filesize = 64M" > /usr/local/etc/php/conf.d/uploads.ini \
     && echo "post_max_size = 64M" >> /usr/local/etc/php/conf.d/uploads.ini \
-    && echo "memory_limit = 512M" >> /usr/local/etc/php/conf.d/uploads.ini
+    && echo "memory_limit = 512M" >> /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "display_errors = Off" > /usr/local/etc/php/conf.d/error_reporting.ini \
+    && echo "error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT" >> /usr/local/etc/php/conf.d/error_reporting.ini
 
 # Set working directory & timezone
 ENV TZ=UTC

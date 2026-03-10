@@ -24,10 +24,10 @@ services:
       - ./data/db:/docker-entrypoint-initdb.d
       - db_invoice_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      timeout: 20s
-      retries: 10
-      start_period: 40s
+      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "-u", "root", "-proot_password"]
+      timeout: 10s
+      retries: 5
+      start_period: 60s
 
   app-invoice:
     build: .

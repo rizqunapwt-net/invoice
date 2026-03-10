@@ -22,17 +22,25 @@ use Illuminate\Support\Facades\Route;
 // return view('welcome',compact('seminar','testimoni','paket'));
 // })->name('halamanutama');
 Route::get('/', function () {
-    return redirect('/login');
+    $seminar=\App\Seminar::all()->whereNotNull('brosur')->sortByDesc('created_at')->take(5);
+    //dd($seminar);
+    $testimoni=\App\Testimoni::all()->sortByDesc('created_at')->take(5);
+    $paket=\App\Paket::all()->where('status','aktif')->sortBy('harga')->take(6);
+  
+return view('welcome',compact('seminar','testimoni','paket'));
 })->name('halamanutama');
-Route::get('/seminar/download/{id}','SeminarController@downloadsertifikat')->name('downloadsertifikat');
 Route::get('/about', function () {
     return view('tentang');
 })->name('tentang');
-Route::get('/registrasiakun', function () {
-    return view('registrasiakun');
-})->name('registrasiakun');
+// Route::get('/seminar/download/{id}','SeminarController@downloadsertifikat')->name('downloadsertifikat');
+// Route::get('/about', function () {
+//     return view('tentang');
+// })->name('tentang');
+// Route::get('/registrasiakun', function () {
+//     return view('registrasiakun');
+// })->name('registrasiakun');
 Route::get('/sitemap.xml', 'SitemapController@index');
-Route::post('/registrasiakun','UserController@simpanpendaftaran')->name('user.simpanpendaftaran')->middleware('throttle:5,1');
+// Route::post('/registrasiakun','UserController@simpanpendaftaran')->name('user.simpanpendaftaran')->middleware('throttle:5,1');
 Route::get('/ketentuan-layanan', 'TosController@view')->name('tos');
  
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
@@ -55,12 +63,12 @@ Route::middleware('auth')->group(function() {
     Route::get('/pemesanan/konfirmasi/{unik}','PemesananController@konfirmasiinvoice')->name('konfirmasiorder');
     Route::post('/pemesanan/konfirmasi/', 'PemesananController@uploadtrf')->name('uploadtrf.order');
 });
-Route::get('/seminar/print', function(){
-    return view('welcome');
-});///untuk redirect print
+// Route::get('/seminar/print', function(){
+//     return view('welcome');
+// });///untuk redirect print
 
-Route::get('/validasipretes/semid/{id}/pre/u/{userid}', 'PretesController@validasi')->name('validasipretes');
-Route::get('/validasipostes/semid/{id}/pos/u/{userid}', 'PostesController@validasi')->name('validasipostes');
+// Route::get('/validasipretes/semid/{id}/pre/u/{userid}', 'PretesController@validasi')->name('validasipretes');
+// Route::get('/validasipostes/semid/{id}/pos/u/{userid}', 'PostesController@validasi')->name('validasipostes');
 Route::get('verifikasi/register/{token}','SeminarController@verif');
 
 Auth::routes(['register' => false]);

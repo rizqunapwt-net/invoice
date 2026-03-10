@@ -8,6 +8,8 @@
  */
 
 define('LARAVEL_START', microtime(true));
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
+ini_set('display_errors', 'Off');
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +23,7 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
-require __DIR__.'/../nota-app/vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +37,7 @@ require __DIR__.'/../nota-app/vendor/autoload.php';
 |
 */
 
-$app = require_once __DIR__.'/../nota-app/bootstrap/app.php';
+$app = require_once __DIR__.'/../bootstrap/app.php';
 
 /*
 |--------------------------------------------------------------------------

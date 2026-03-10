@@ -193,7 +193,7 @@
                             
 
                             <div class="col-md-12">
-                                <input type="checkbox" required> Dengan ini saya menyetujui <a href={{route('tos')}}>Ketentuan Layanan</a> MesemVirtual 
+                                <input type="checkbox" required> Dengan ini saya menyetujui <a href={{route('tos')}}>Ketentuan Layanan</a> Invoice Rizquna 
                             </div>
                         </div>
                        

@@ -89,7 +89,7 @@
         <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark biruku fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="{{route('halamanutama')}}">MesemVirtual</a>
+      <a class="navbar-brand" href="{{route('halamanutama')}}">Invoice Rizquna</a>
       <a  href="{{url('/login')}}" class="button">login</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

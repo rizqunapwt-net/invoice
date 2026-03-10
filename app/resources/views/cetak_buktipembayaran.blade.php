@@ -21,7 +21,7 @@
                 <div class="card-body p-0">
                     <div class="row p-5">
                         <div class="col-md-6">
-                            <img src="{{url('/')}}/logo-mesem.png" width="200px">
+                            <img src="{{url('/')}}/logo-rizquna.jpg" width="200px">
                         </div>
 
                         <div class="col-md-6 text-right">

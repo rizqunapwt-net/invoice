@@ -40,13 +40,8 @@
                 </center>
                 @if(Auth::user()->level != 'admin')
                     <div class="table-responsive">
-                        <a href="{{route('seminarku')}}" class="btn btn-primary" style="width:100%"> info Seminarku</a>
+                        <a href="{{route('tagihanku')}}" class="btn btn-primary" style="width:100%"> Tagihanku / Invoices</a>
                     </div>
-
-                    @if (Auth::user()->ttl == null)
-                    <a href="{{route('myprofile')}}" class="btn btn-danger" style="width:100%"> UPDATE Tanggal Lahir Anda SEKARANG!</a>
-                        
-                    @endif
                     @endif
 
                 </div>

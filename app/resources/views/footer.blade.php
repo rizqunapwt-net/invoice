@@ -12,9 +12,9 @@
       <div class="col-md-6 mt-md-0 mt-3">
 
         <!-- Content -->
-       <img src="{{asset('logo-mesem-bw.png')}}" alt="logo mesem virtual" width="200px">
+       <img src="{{asset('logo-rizquna.jpg')}}" alt="logo rizquna" width="200px">
         <br>
-        <p class="putih">Solusi Seminar tanpa ribet</p>
+        <p class="putih">Sistem Informasi Manajemen Invoice Rizquna</p>
         <h4 class="putih">Office</h4>
         <p class="putih">Jalan KS Tubun Gang Camar Karangsalam Kidul 
           Purwokerto - Banyumas - Jawa Tengah</p>
@@ -34,7 +34,7 @@
             <a href="http://rizquna.id" class="kuning footer">Rizquna.id</a>
           </li>
           <li>
-            <a href="http://mesem.rizquna.id/login" class="kuning footer">Login</a>
+            <a href="https://invoice.rizquna.id/login" class="kuning footer">Login</a>
           </li>
          
         </ul>
@@ -78,7 +78,7 @@
   <!-- Copyright -->
   <div class="footer-copyright text-center py-3 putih">
     © {{date('Y')}} Copyright:
-    <a href="http://mesem.rizquna.id/" class="putih">MesemVirtual</a>
+    <a href="https://invoice.rizquna.id/" class="putih">Invoice Rizquna</a>
   </div>
   <!-- Copyright -->
 

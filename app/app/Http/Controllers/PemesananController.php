@@ -224,7 +224,7 @@ class PemesananController extends Controller
             'namapaket'=>$request->namapaket,
             'unik'=>$unik),
             function($pesan) use($request){
-            $pesan->to($request->email,'Invoice MesemVirtual')->subject('Invoice MesemVirtual ' );
+            $pesan->to($request->email,'Invoice Rizquna')->subject('Invoice Invoice Rizquna ' );
             $pesan->replyTo(env('MAIL_REPLY_TO', 'noreply@rizquna.id'),"Admin Rizquna");
             $pesan->from(env('MAIL_FROM_ADDRESS', 'noreply@rizquna.id'), env('MAIL_FROM_NAME', 'Penerbit Rizquna'));
         });
@@ -237,6 +237,9 @@ class PemesananController extends Controller
         ini_set('memory_limit',"4000M");
         ini_set('max_execution_time', 0);
         $pemesanan=Pemesanan::where('kodeinvoice',$unik)->first();
+        if (!$pemesanan || ($pemesanan->user_id != Auth::id() && Auth::user()->level != 'admin')) {
+            abort(403, 'Unauthorized action.');
+        }
         $dp=Pemesanan::where('kodeinvoice',$unik)->get();
         $t=0;
         foreach($dp as $data){
@@ -261,6 +264,9 @@ class PemesananController extends Controller
         ini_set('memory_limit',"4000M");
         ini_set('max_execution_time', 0);
         $pemesanan=Pemesanan::where('kodeinvoice',$unik)->get();
+        if ($pemesanan->isEmpty() || ($pemesanan[0]->user_id != Auth::id() && Auth::user()->level != 'admin')) {
+            abort(403, 'Unauthorized action.');
+        }
        // $seminar_id=$user->seminar_id;
        $dus= json_decode( json_encode($pemesanan), true);
       //dd($dus);
@@ -293,12 +299,12 @@ else{
 $this->fpdf->SetFont('Arial','',10);
 $this->fpdf->Ln();
 $this->fpdf->Cell(80 ,10,'',0,0);
-$this->fpdf->Cell(59 ,5,'mesem.rizquna.id',0,0);
+$this->fpdf->Cell(59 ,5,'invoice.rizquna.id',0,0);
 $this->fpdf->Cell(59 ,10,'',0,1);
 
 $this->fpdf->SetFont('Arial','B',15);
  
-$logo=public_path()."/logo-mesem.png";
+$logo=public_path()."/logo-rizquna.jpg";
 
 $this->fpdf->Image($logo, 10, 20, 60, 20);
 $this->fpdf->Image($qrnya, 140, 30, 40, 40);
@@ -366,7 +372,7 @@ $this->fpdf->Cell(70 ,6,'Hormat kami,',0,0,'R');
 $this->fpdf->Ln(); $this->fpdf->Ln();
 $this->fpdf->Cell(100 ,6,'',0,0,'R');
 $this->fpdf->SetFont('Arial','BI',10);
-$this->fpdf->Cell(70 ,6,'MesemVirtual Team',0,0,'R');
+$this->fpdf->Cell(70 ,6,'Rizquna Team',0,0,'R');
 $this->fpdf->Image($lunas, 80, 40, 80, 30);
 
 // $this->fpdf->Cell(118 ,6,'',0,0);

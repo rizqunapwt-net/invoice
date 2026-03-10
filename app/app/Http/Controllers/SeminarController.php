@@ -130,7 +130,7 @@ class SeminarController extends Controller
             $peserta->save();
             Mail::send([], [], function ($message) use($request,$email) {
                 $message->to($email)
-                  ->subject('Info Penting MesemVirtual')              
+                  ->subject('Info Penting Invoice Rizquna')              
                   ->setBody($request->pesan, 'text/html'); // for HTML rich messages
                   $message->replyTo(env('MAIL_REPLY_TO', 'noreply@rizquna.id'),"Admin Rizquna");
                 $message->from(env('MAIL_FROM_ADDRESS', 'noreply@rizquna.id'),$request->judul);
@@ -188,7 +188,7 @@ class SeminarController extends Controller
             'tanggal'=>$seminar->tanggal,
             'unik'=>$d->unik),
             function($pesan) use($email){
-            $pesan->to($email,'E-Sertifikat MesemVirtual')->subject('E-Sertifikat MesemVirtual ' );
+            $pesan->to($email,'E-Sertifikat Invoice Rizquna')->subject('E-Sertifikat Invoice Rizquna ' );
             $pesan->replyTo(env('MAIL_REPLY_TO', 'noreply@rizquna.id'),"Admin Rizquna");
             $pesan->from(env('MAIL_FROM_ADDRESS', 'noreply@rizquna.id'), env('MAIL_FROM_NAME', 'Penerbit Rizquna'));
         });
@@ -530,6 +530,9 @@ class SeminarController extends Controller
         ini_set('memory_limit',"4000M");
         ini_set('max_execution_time', 0);
         $peserta=Peserta::where('unik',$unik)->where('status','ok')->get();
+        if ($peserta->isEmpty() || ($peserta[0]->user_id != Auth::id() && Auth::user()->level != 'admin')) {
+             abort(403, 'Unauthorized action.');
+        }
        // $seminar_id=$peserta->seminar_id;
        $dus= json_decode( json_encode($peserta), true);
       //dd($dus);
@@ -791,6 +794,9 @@ exit();
         ini_set('max_execution_time', 0);
         
         $user=Peserta::where('unik',$unik)->get();
+        if ($user->isEmpty() || ($user[0]->user_id != Auth::id() && Auth::user()->level != 'admin')) {
+            abort(403, 'Unauthorized action.');
+        }
         $duser= json_decode( json_encode($user), true);
        // dd($duser);
         $namapeserta=$duser[0]['namapeserta'];
@@ -1136,29 +1142,28 @@ silakan proses!";
 
 
     public function myprofile(){
-        $seminar=Seminar::findorfail(Auth::user()->id);
-        $jenjang= DB::table('jenjang')->get();
-        $kecamatan=DB::table('kecamatan')->get();
-        $sekolah= DB::table('sekolah')->where('id',Auth::user()->sekolah_id)->first();
-        return view('admin.myprofile',compact('seminar','sekolah','kecamatan')); 
+        $users=User::findorfail(Auth::user()->id);
+        // $jenjang= DB::table('jenjang')->get();
+        // $kecamatan=DB::table('kecamatan')->get();
+        // $sekolah= DB::table('sekolah')->where('id',Auth::user()->sekolah_id)->first();
+        return view('admin.myprofile',compact('users')); 
     }
 
     public function gantipassword(Request $request)
     {
-         
-        $seminar = Seminar::find($request->id);
- 
-     
-        if(!empty($request->newpaswd) && $request->newpaswd == $request->newpaswdconfirm){
-            $newpassword=Hash::make($request->newpaswd);
+        if (Auth::id() != $request->id) {
+            abort(403, 'Unauthorized action.');
         }
 
-        $seminar->password=$newpassword;
+        $user = User::find($request->id);
+ 
+        if(!empty($request->newpaswd) && $request->newpaswd == $request->newpaswdconfirm){
+            $newpassword=Hash::make($request->newpaswd);
+            $user->password=$newpassword;
+            $user->save(); 
+            return redirect()->back()->with('success','Password berhasil diupdate!');
+        }
         
-        $seminar ->save(); 
-         
-        return redirect()->back()->with('success','Password berhasil diupdate!');
-       
-        
+        return redirect()->back()->with('error','Password baru tidak cocok!');
     }
 }
