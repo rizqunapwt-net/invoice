@@ -1,10 +1,11 @@
-version: '3.8'
-
 services:
   db-invoice:
     image: mariadb:latest
     container_name: invoice_db
     restart: always
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     command: >
       --character-set-server=utf8mb4
       --collation-server=utf8mb4_unicode_ci
@@ -32,6 +33,9 @@ services:
     build: .
     container_name: invoice_app
     restart: always
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     ports:
       - "8089:80"
     volumes:

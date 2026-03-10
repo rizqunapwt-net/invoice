@@ -55,19 +55,19 @@ WORKDIR /var/www/html
 RUN echo "expose_php = Off" > /usr/local/etc/php/conf.d/security.ini \
     && echo "disable_functions = exec,passthru,shell_exec,system,proc_open,popen,curl_exec,curl_multi_exec,parse_ini_file,show_source" >> /usr/local/etc/php/conf.d/security.ini
 
-# Install composer dependencies
-COPY app/composer.* ./
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-reqs
+# Install composer dependencies (Commented out to speed up build)
+# COPY app/composer.* ./
+# RUN composer install --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-reqs
 
-# Install node dependencies
-COPY app/package*.json ./
-RUN npm install
+# Install node dependencies (Commented out to speed up build)
+# COPY app/package*.json ./
+# RUN npm install
 
 # Copy application files
 COPY app/ ./
 
-# Fix permissions
-RUN chmod -R 755 storage bootstrap/cache
+# Fix permissions (Commented out because storage is ignored in .dockerignore)
+# RUN chmod -R 755 storage bootstrap/cache
 
 # Expose port
 EXPOSE 80
